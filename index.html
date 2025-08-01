@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <!-- Meta de base -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Fonts + FontAwesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <!-- Feuille de style principale -->
+  <link rel="stylesheet" href="style.css" />
+  <title>Bertrand Causse</title>
+</head>
+
+<body>
+<div id="top-bar">
+  <header id="main-header">
+    <h1 id="site-title">Bertrand Causse</h1>
+  </header>
+
+  <!-- 2. MENU STICKY -->
+  <nav class="menu">               <!-- ← balise ouvrante correcte -->
+    <a href="#bio">Biographie</a>
+    <a href="#sifflet">Sifflet</a>
+    <a href="#orchestre">Orchestre Coalescence</a>
+    <a href="#chorale">Chorale</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#contact">Contact</a>
+  </nav>                           <!-- ← balise fermante -->
+</div>
+
+  <!-- ===================== 3. HERO PARALLAXE ===================== -->
+  <section class="hero">
+    <!-- Image plein écran (effet parallaxe géré en JS) -->
+    <img src="images/acceuil.jpeg" alt="Bertrand Causse" class="hero-img" />
+  </section>
+
+  <!-- ===================== 4. BIOGRAPHIE (chevauche l'image) ===================== -->
+<section class="content overlap">
+  <div class="bio-card">
+      <h2>Biographie</h2>
+      <!-- 📄 Texte condensé pour l'exemple ; remplace par ton contenu complet -->
+      <p>Pianiste, altiste, siffleur et chef d'orchestre, Bertrand Causse est 
+        un musicien éclectique par excellence. Tourné vers la musique contemporaine, 
+        il a été l’alto solo de l’Ensemble Fa pendant de nombreuses années. Il a créé avec le violoniste Nemanja Radulovic l'ensemble "Les trilles du
+         Diable", dont il a été l'altiste pendant dix ans. Il a également été alto solo de l'orchestre "Double Sens", dirigé par Nemanja Radulovic, 
+         pendant neuf ans. Il s'est produit avec ces deux ensembles sur de nombreuses scènes de renommée internationale et a enregistré avec eux sous 
+         les labels Decca et Deutsche Grammophon.
+        </p>
+        <p>Animé par la musique en formation symphonique, il a dirigé l’orchestre des jeunes d’Île-de-France pendant trois ans, puis l’orchestre CNR-Université de Reims dont il est le fondateur, pendant quatre ans. Depuis 2012, il est directeur musical de l'orchestre symphonique Coalescence à Paris. Depuis cinq ans, il emmène CordiCîmes, ensemble à cordes qu'il a fondé avec des membres de Coalescence, dans un répertoire plus proche de la musique de chambre pour participer au Festival d'été « Orgues Musiques et Cimes » dans la vallée du Trient, près de Chamonix. Il est l'un des deux chefs d'orchestre engagés sur le grand spectacle "Luminescence", mettant en lumière l'Église Saint-Eustache à Paris en 2024.
+        </p>
+        <p>Grand lauréat du 1er concours français de Sifflet, organisé par Radio Classique (Novembre 2017), il est surtout devenu Vice-champion du monde à Tokyo le 5 mai 2018. Siffleur à la brillante carrière, il développe un répertoire précieux notamment avec l’Orchestre Coalescence grâce à des œuvres contemporaines dédiées au sifflet solo (Philippe Georges, Eric Caissy, Alessandro Annunziata), mais aussi des œuvres classiques (Air de la Reine de la nuit de Mozart, Summertime de Gershwin, vocalise de Rachmaninov...). En 2015, il a créé, en collaboration avec le quatuor Stanislas, le spectacle «Siffler n’est pas jouer», présenté dans le cadre du off du Festival d’Avignon et accueilli avec succès lors de l’édition 2018 du Festival des Arts de Saint-Agrève. Il a proposé avec la pianiste Christine Chareyron le duo «Ne sifflez pas sur la pianiste!» et ainsi le 1er récital mondial de sifflet avec piano en mars 2019 à Paris. Il a créé à l'automne 2023 à la cathédrale de Créteil le 1er récital de sifflet avec orgue en collaboration avec Eric Lebrun, puis en Suisse avec l'organiste Guy-Baptiste Jaccottet à La Tour de Peilz. En septembre 2021, Bertrand Causse a soutenu et conseillé le danseur et chorégraphe Boris Charmatz qui l'a sollicité pour son spectacle «Somnole».
+        </p>
+        <p>Le 14 janvier 2024, il a été invité par la chanteuse Na-Kyung Lee et le pianiste Kim Bernard à partager avec eux la scène de L'Entrepot à Paris, pour un concert sur le thème des oiseaux mêlant poésie, musique classique, jazz et improvisation.</p></p>
+      </p>
+      <!-- … -->
+      </div>
+  </section>
+
+  <!-- ===================== 5. SIFFLET ===================== -->
+<section class="chapter" id="sifflet" data-bg="images/sifflet.jpg">
+  <div class="card">
+      <h2>Sifflet</h2>
+      <p>Voici quelques enregistrements ou extraits de pièces sifflet. Voir <a href="#agenda" > Agenda</a> pour les prochains récitals. </p>
+    <p style="margin-top:10px"></p> <!-- on saute un espace -->
+      <p><strong>Gabriel Fauré</strong> – <em>Après un rêve</em> (accordéon : Laurent Derache, trombone : Philippe Georges)</p>
+      <!-- Vidéo YouTube -->
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/VFog8b8uCJs"
+          title="Fauré – Après un rêve (sifflet)"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p><strong>W. A. Mozart</strong> – <em>Voi che sapete</em> (orgue : Éric Lebrun )</p>
+      <audio controls>
+        <source src="musique/Mozart  Voi che sapete. Bertrand Causse, siffleur ; Eric lebrun, orgue.mp3" type="audio/mpeg" />
+      </audio>
+        <p style="margin-top:10px"></p> <!-- on saute un espace -->
+      <p><strong>W. A. Mozart</strong> – <em>La Reine de la Nuit </em> (orgue : Guy-Baptiste Jacottet)</p>
+      <audio controls>
+        <source src="musique/Mozart – Der Holle Rache.mp3" type="audio/mpeg" />
+      </audio>
+      </div>
+  </section>
+
+
+  <!-- ===================== 6. Orchestre ===================== -->
+  <section class="chapter" id="orchestre" data-bg="images/orchestre.jpg">
+    <div class="card">
+      <h2>Orchestre Coalescence</h2>
+      <p>Voici quelques enregistrements ou extraits de pièces sifflet. Voir <a href="#agenda" > Agenda</a> pour les prochains récitals.
+    <p style="margin-top:10px"></p> <!-- on saute un espace -->
+      <p><strong>Gabriel Fauré</strong> – <em>Après un rêve</em> (accordéon : Laurent Derache, trombone : Philippe Georges)</p>
+      <!-- Vidéo YouTube -->
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/VFog8b8uCJs"
+          title="Fauré – Après un rêve (sifflet)"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
+      </div>
+      <p><strong>W. A. Mozart</strong> – <em>Voi che sapete</em> (orgue : Éric Lebrun )</p>
+      <audio controls>
+        <source src="musique/Mozart  Voi che sapete. Bertrand Causse, siffleur ; Eric lebrun, orgue.mp3" type="audio/mpeg" />
+      </audio>
+        <p style="margin-top:10px"></p> <!-- on saute un espace -->
+      <p><strong>W. A. Mozart</strong> – <em>La Reine de la Nuit </em> (orgue : Guy-Baptiste Jacottet)</p>
+      <audio controls>
+        <source src="musique/Mozart – Der Holle Rache.mp3" type="audio/mpeg" />
+      </audio>
+    </div>
+  </section>
+
+  <!-- ===================== 7. AGENDA ===================== -->
+<section class="chapter" id="agenda" data-bg="images/agenda.jpeg">
+  <div class="card">
+    <h2>Agenda</h2>
+    <!-- 1 événement = un .event (date + détails) -------------------------->
+     
+  <div class="event">
+    <span class="date">22/07/25 – 20:00</span> <!-- Date + heure -->
+    <div class="details">                       <!-- Détails du concert -->
+      <div>Martigny – Église de Martigny-Bourg</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <span class="date">31/08/25</span>
+    <div class="details">
+      <div>Annecy – Cathédrale</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <span class="date">23/11/25 – 15:30</span>
+    <div class="details">
+      <div>Nice (FR) – Saint-Paul</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <span class="date">30/01/26</span>
+    <div class="details">
+      <div>Angers – Chapelle du Bon-Pasteur</div>
+      <div>Festival « Le Printemps des Orgues »</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <span class="date">14/02/26 – 11:00</span>
+    <div class="details">
+      <div>La Tour-de-Peilz – Temple</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <span class="date">15/02/26 – 17:00</span>
+    <div class="details">
+      <div>Aubonne – Temple</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+
+  <div class="event">
+    <span class="date">23–24/07/27</span>
+    <div class="details">
+      <div>Saint-Moritz</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+  <!-- Duplique .event pour chaque date -->
+      <!-- … -->
+  </div>
+</section>
+
+  <!-- ===================== 8. CONTACT ===================== -->
+<section class="chapter" id="contact" data-bg="images/contact.jpg">
+  <div class="card">
+    <h2>Contact</h2>
+    <form id="contact-form" action="https://formsubmit.co/your@email.com" method="POST">
+        <input type="text"   name="nom"    placeholder="Votre nom"    required />
+        <input type="email"  name="email"  placeholder="Votre adresse email"  required />
+        <textarea             name="message" placeholder="Votre message" required></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+      <p style="margin-top:15px;">Vous pouvez aussi m'écrire à l'adresse <a href="mailto:bertrandcausse@gmail.com">bertrandcausse@gmail.com</a></p>
+    </div>
+</section>
+
+
+  <!-- ===================== 9. FOOTER ===================== -->
+  <footer>
+    <div class="footer-left">© 2025 Bertrand Causse</div>
+    <div class="footer-right">
+      <a href="https://facebook.com/bertrand"      target="_blank"><i class="fab fa-facebook-f"></i></a>
+      <a href="https://instagram.com/bertrand"     target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://youtube.com/bertrand"       target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="https://linkedin.com/in/bertrand"   target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </footer>
+
+  <!-- ===================== 10. SCRIPTS ===================== -->
+  <script src="script.js"></script>
+</body>
+</html>
