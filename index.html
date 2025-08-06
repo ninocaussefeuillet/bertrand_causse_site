@@ -35,6 +35,7 @@
   <section class="hero">
     <!-- Image plein écran (effet parallaxe géré en JS) -->
     <img src="images/acceuil.jpeg" alt="Bertrand Causse" class="hero-img" />
+    
   </section>
 
   <!-- ===================== 4. BIOGRAPHIE (chevauche l'image) ===================== -->
@@ -123,7 +124,14 @@
   <div class="card">
     <h2>Agenda</h2>
     <!-- 1 événement = un .event (date + détails) -------------------------->
-     
+  <div class="event">
+    <span class="date">22/07/24 – 20:00</span> <!-- Date + heure -->
+    <div class="details">                       <!-- Détails du concert -->
+      <div>Martigny – Église de Martigny-Bourg</div>
+      <div>Avec Guy-Baptiste Jaccottet (orgue)</div>
+    </div>
+  </div>
+
   <div class="event">
     <span class="date">22/07/25 – 20:00</span> <!-- Date + heure -->
     <div class="details">                       <!-- Détails du concert -->
@@ -189,7 +197,7 @@
 <section class="chapter" id="contact" data-bg="images/contact.jpg">
   <div class="card">
     <h2>Contact</h2>
-    <form id="contact-form" action="https://formsubmit.co/your@email.com" method="POST">
+    <form id="contact-form" action="https://formsubmit.co/bertrandcausse@gmail.com" method="POST">
         <input type="text"   name="nom"    placeholder="Votre nom"    required />
         <input type="email"  name="email"  placeholder="Votre adresse email"  required />
         <textarea             name="message" placeholder="Votre message" required></textarea>
