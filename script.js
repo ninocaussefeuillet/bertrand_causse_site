@@ -218,3 +218,25 @@ document.addEventListener('DOMContentLoaded', () => { // Attendre que le HTML so
     }, { once:true }); // l’URL objet est créée une seule fois
   }
 })();
+
+
+/* ------------------- ESSAI POUR PORTABLE ------------------- */
+
+  /* ---------- E. Menu mobile (burger) ---------------------------- */
+  const burger = document.getElementById('burger');
+  const mobileNav = document.querySelector('.mobile-nav');
+  if (burger && mobileNav) {
+    burger.addEventListener('click', () => {
+      burger.classList.toggle('open');
+      mobileNav.classList.toggle('open');
+      document.body.classList.toggle('nav-open'); // empêche le scroll en fond
+    });
+    /* Ferme le menu quand on clique sur un lien */
+    mobileNav.querySelectorAll('a').forEach(a =>
+      a.addEventListener('click', () => {
+        burger.classList.remove('open');
+        mobileNav.classList.remove('open');
+        document.body.classList.remove('nav-open');
+      })
+    );
+  }

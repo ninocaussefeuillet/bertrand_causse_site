@@ -253,3 +253,76 @@ footer {
 .footer-right a:hover {
   color: #1db954;                    /* vert Spotify au survol */
 }
+
+
+
+/* ------------------- ESSAI POUR PORTABLE ------------------- */
+
+/* ------------------------------------------------------------------
+   MEDIA QUERIES  —  TABLETTE & TÉLÉPHONE
+------------------------------------------------------------------ */
+
+/* === 1) Tablette portrait et petits laptops (≤ 768 px) ============= */
+@media (max-width: 768px) {
+
+  /* --- Typographie ---------------------------------------------- */
+  body              { font-size: 16px; }          /* texte un poil plus grand */
+  h1#site-title      { font-size: 2rem; }
+  h2                { font-size: 1.4rem; }
+
+  /* --- Menu ------------------------------------------------------ */
+  .menu             { flex-wrap: wrap; gap: 12px; padding: 8px 0; }
+  .menu a           { font-size: 0.95rem; }
+
+  /* --- Héros ----------------------------------------------------- */
+  .hero-img         { height: 110%; }             /* moins d’overscan -> moins de RAM */
+
+  /* --- Cartes ---------------------------------------------------- */
+  .card,
+  .bio-card         { padding: 32px 18px; }       /* marge interne réduite */
+
+  /* --- Agenda ---------------------------------------------------- */
+  .event            { gap: 12px; }                /* espace plus petit entre date & détails */
+  .date             { min-width: 110px; font-size: 1.1em; }
+
+  /* --- Footer ---------------------------------------------------- */
+  footer            { font-size: 12px; padding: 16px 20px; }
+  .footer-right a   { font-size: 18px; margin-left: 10px; }
+}
+
+/* === 2) Téléphone (≤ 479 px) ======================================= */
+@media (max-width: 479px) {
+
+  /* --- Typographie ---------------------------------------------- */
+  body              { font-size: 15px; }
+  h1#site-title      { font-size: 1.6rem; }
+  h2                { font-size: 1.25rem; }
+
+  /* --- Menu ------------------------------------------------------ */
+  .menu             { flex-direction: column; gap: 6px; }
+  .menu a           { font-size: 1rem; }
+
+  /* (option) Si tu prévois plus tard un burger,
+     tu peux masquer la nav ici et l’afficher via JS :
+     .menu { display:none; }  */
+
+  /* --- Héros / images ------------------------------------------- */
+  .hero             { height: 90vh; }             /* réduit un peu la section pour montrer du contenu */
+  .hero-img         { height: 108%; }
+
+  /* --- Sections & cartes ---------------------------------------- */
+  .content          { padding: 40px 0; }
+  .card,
+  .bio-card         { padding: 26px 16px; }
+
+  /* --- Agenda ---------------------------------------------------- */
+  .event            { flex-direction: column; }
+  .date             { min-width: 0; }
+
+  /* --- Vidéo ----------------------------------------------------- */
+  .video-wrapper    { margin-bottom: 16px; }      /* espace plus compact */
+
+  /* --- Footer ---------------------------------------------------- */
+  footer            { flex-direction: column; gap: 12px; font-size: 13px; }
+  .footer-right a   { font-size: 22px; margin-left: 0; }
+}
