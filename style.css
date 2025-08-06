@@ -299,7 +299,6 @@ footer {
   h2                { font-size: 1.25rem; }
 
   /* --- Menu ------------------------------------------------------ */
-  .menu             { flex-direction: column; gap: 6px; }
   .menu a           { font-size: 1rem; }
 
   /* (option) Si tu prévois plus tard un burger,
@@ -326,3 +325,82 @@ footer {
   footer            { flex-direction: column; gap: 12px; font-size: 13px; }
   .footer-right a   { font-size: 22px; margin-left: 0; }
 }
+
+/* ================================================================
+   MENU MOBILE  pleine page — burger + overlay
+   ================================================================ */
+
+/* ---------- 1. Bouton burger (caché par défaut) ---------------- */
+#burger{
+  position:fixed;                 /* reste visible même en scroll */
+  top:16px; right:16px;
+  width:32px; height:24px;
+  cursor:pointer; z-index:1201;   /* au-dessus de l’overlay */
+  display:none;                   /* on ne l’affiche qu’en mobile */
+}
+#burger span,
+#burger::before,
+#burger::after{
+  content:"";
+  position:absolute; left:0;
+  width:100%; height:3px;
+  background:#c00;                /* rouge (ajuste la couleur) */
+  transition:transform .35s ease, opacity .35s ease;
+}
+#burger::before{ top:0; }
+#burger span   { top:50%; transform:translateY(-50%); }
+#burger::after { bottom:0; }
+
+/* état OPEN → croix */
+#burger.open::before{ transform:translateY(9px) rotate(45deg); }
+#burger.open::after { transform:translateY(-9px) rotate(-45deg); }
+#burger.open span   { opacity:0; }
+
+/* ---------- 2. Overlay navigation ----------------------------- */
+.mobile-nav{
+  position:fixed; inset:0;                /* couvre tout l’écran */
+  display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap:36px;
+  background:rgba(0,0,0,.85);
+  backdrop-filter:blur(2px);
+  transform:translateY(-100%);            /* caché au-dessus */
+  transition:transform .45s cubic-bezier(.4,0,.2,1);
+  z-index:1200;
+}
+.mobile-nav a{
+  font-family:'Work Sans',sans-serif;
+  font-weight:300; letter-spacing:2px;
+  font-size:clamp(1.4rem,4vw,2rem);
+  color:#fff; text-decoration:none;
+  text-transform:lowercase;
+  position:relative;
+}
+.mobile-nav a::after{                     /* fine ligne blanche */
+  content:""; position:absolute; left:-40vw; right:-40vw;
+  bottom:-14px; height:1px; background:#fff; opacity:.6;
+}
+.mobile-nav a:last-child::after{ display:none; }
+
+/* état OPEN (ajouté/retiré par JS) */
+.mobile-nav.open{ transform:translateY(0); }
+
+/* empêcher le scroll du fond quand le menu est ouvert */
+body.nav-open{ overflow:hidden; }
+
+/* ---------- 3. Points de rupture -------------------------------- */
+
+/* Smartphones / petites tablettes  ≤ 768 px */
+@media (max-width:768px){
+  /* on cache le menu horizontal classique */
+  .menu{ display:none; }
+
+  /* on montre le burger */
+  #burger{ display:block; }
+}
+
+/* Desktop  > 768 px  : on masque complètement l’overlay */
+@media (min-width:769px){
+  .mobile-nav{ display:none; }
+}
+
