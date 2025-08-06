@@ -20,16 +20,31 @@
     <h1 id="site-title">Bertrand Causse</h1>
   </header>
 
-  <!-- 2. MENU STICKY -->
-  <nav class="menu">               <!-- ← balise ouvrante correcte -->
+  <!-- 2. MENU STICKY (version desktop) -->
+  <nav class="menu" aria-label="Navigation principale">
     <a href="#bio">Biographie</a>
     <a href="#sifflet">Sifflet</a>
     <a href="#orchestre">Orchestre Coalescence</a>
     <a href="#chorale">Chorale</a>
     <a href="#agenda">Agenda</a>
     <a href="#contact">Contact</a>
-  </nav>                           <!-- ← balise fermante -->
-</div>
+  </nav>
+
+  <!-- 2.bis  BOUTON BURGER + NAV MOBILE (smartphone)  -->
+  <div id="burger" aria-label="Ouvrir le menu" aria-expanded="false" role="button">
+    <span></span>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Navigation mobile">
+    <a href="#bio">Biographie</a>
+    <a href="#sifflet">Sifflet</a>
+    <a href="#orchestre">Orchestre Coalescence</a>
+    <a href="#chorale">Chorale</a>
+    <a href="#agenda">Agenda</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</div> <!-- /#top-bar -->
+
 
   <!-- ===================== 3. HERO PARALLAXE ===================== -->
   <section class="hero">
