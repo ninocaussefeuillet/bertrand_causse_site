@@ -2,60 +2,47 @@
 """
 autopush.py – Met à jour le dépôt Git courant
 Usage :
-    python autopush.py "Mon message de commit"
-Si aucun message n’est passé, on génère :
-    "MàJ auto – YYYY-MM-DD HH:MM:SS"
+  python autopush.py "Mon message de commit"
+  (sinon : "MàJ auto – YYYY-MM-DD HH:MM:SS")
 """
-
-import subprocess
-import sys
+import subprocess, sys
 from datetime import datetime
-from pathlib import Path
 
-"""run() joue le rôle d’un wrapper sécurisé :
-Log la commande qu’il exécute.
-Capture et affiche toutes les sorties.
-Coupe court dès qu’une commande retourne une erreur, pour éviter d’enchaîner des opérations incohérentes."""
-
-def run(cmd: str) -> None:
-    """Exécute une commande shell ; quitte si code ≠ 0."""
+def run(cmd: str, cwd: str) -> None:
+    """Exécute `cmd` dans `cwd`; n’arrête que sur vraie erreur."""
     print(f"\n➡️  {cmd}")
-    result = subprocess.run(
-        cmd, shell=True, text=True,
+    res = subprocess.run(
+        cmd, shell=True, cwd=cwd, text=True,
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
-    if result.stdout:
-        print(result.stdout.strip())
-    if result.returncode != 0:
+    if res.stdout:
+        print(res.stdout.strip())
+
+    # git commit retourne 1 si rien à valider → on l’accepte
+    if res.returncode and "nothing to commit" not in (res.stdout or ""):
         sys.exit(f"❌  Échec : {cmd}")
 
 def main() -> None:
-    # 1) Vérifie qu’on est dans un dépôt Git
+    # 1) Trouve la racine du dépôt
     try:
         git_root = subprocess.check_output(
-            ["git", "rev-parse", "--show-toplevel"],
-            text=True
+            ["git", "rev-parse", "--show-toplevel"], text=True
         ).strip()
     except subprocess.CalledProcessError:
         sys.exit("❌  Ce dossier n’est pas un dépôt Git.")
-
     print(f"📁  Dépôt détecté : {git_root}")
 
-    # 2) Construis le message de commit
-    if len(sys.argv) > 1:
-        message = " ".join(sys.argv[1:])
-    else:
-        message = datetime.now().strftime("MàJ auto – %Y-%m-%d %H:%M:%S")
+    # 2) Message de commit
+    message = " ".join(sys.argv[1:]) if len(sys.argv) > 1 \
+              else datetime.now().strftime("MàJ auto – %Y-%m-%d %H:%M:%S")
 
-    # 3) Liste des commandes
-    commands = [
-        "git add --all",               # indexe tout
-        f'git commit -m "{message}"',  # commit
-        "git push"                     # push sur la branche suivie
-    ]
-
-    for cmd in commands:
-        run(cmd)
+    # 3) Pipeline Git
+    for cmd in (
+        "git add --all",
+        f'git commit -m "{message}"',
+        "git push",
+    ):
+        run(cmd, git_root)
 
     print("\n✅  Dépôt à jour sur GitHub !")
 
