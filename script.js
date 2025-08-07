@@ -120,10 +120,11 @@ document.addEventListener('DOMContentLoaded', () => { // Attendre que le HTML so
       const shift = progress * shiftMax;             // Déplacement de l'image
       sec.style.setProperty('--shift', `-${shift}px`);// Injecte dans la CSS variable
 
-      const alpha = progress < 0.9 ?                // Opacité : 1 jusqu'à 90 %
-        1 :                                         // puis décroît linéairement
-        1 - (progress - 0.9) * 10;                 // 90 % → 100 % ⇒ 1 → 0
-      sec.style.setProperty('--alpha', alpha);      // Met à jour l'opacité
+      const isLast = sec === chapters[chapters.length - 1]; // Vérifie si c’est le dernier
+      const alpha = isLast
+        ? 1                                                  // Pas de fondu pour le dernier
+        : (progress < 0.9 ? 1 : 1 - (progress - 0.9) * 10);  // Sinon, comportement normal
+      sec.style.setProperty('--alpha', alpha);
     });
   }
 
