@@ -109,17 +109,21 @@ h1, h2, h3, h4, h5, h6 {
 .chapter::before{
   content:"";
   position:absolute; top:0; left:0;
-  width:100%; height:100%;
+  width:100%;
+  height:100%;                 /* ← à ne pas oublier !  */
+  /* inset:0;  ← équivalent compact : top/right/bottom/left 0 */
+
   background-image:var(--bg);
-  background-size:cover;
+  background-size:contain;     /* montre l’image entière, pas de découpe */
   background-position:center;
   background-repeat:no-repeat;
+  background-color:#000;       /* bandes noires éventuelles */
 
-  /*  valeurs injectées par JS  */
-  transform: translateY(var(--shift));   /* déplacement  */
-  opacity:   var(--alpha);               /* fondu en fin */
+  /* valeurs injectées par JS */
+  transform: translateY(var(--shift));
+  opacity:   var(--alpha);
   will-change: transform, opacity;
-  z-index:-1;                            /* derrière la carte */
+  z-index:-1;                  /* derrière la carte */
 }
 
 
@@ -436,6 +440,9 @@ body.nav-open{ overflow: hidden; }
 @media (max-width: 768px){
   .menu   { display: none; }   /* barre horizontale masquée */
   #burger { display: block; }  /* icône visible             */
+  #top-bar {
+    display: none;
+  }
 }
 
 /* Desktop : on masque complètement l’overlay pour éviter un tabindex
