@@ -326,81 +326,112 @@ footer {
   .footer-right a   { font-size: 22px; margin-left: 0; }
 }
 
-/* ================================================================
-   MENU MOBILE  pleine page — burger + overlay
-   ================================================================ */
+/* ------------------------------------------------------------------
+   MENU MOBILE PLEIN-ÉCRAN
+   ------------------------------------------------------------------
+   •  #burger               → icône « hamburger » affichée uniquement en mobile  
+   •  .mobile-nav           → overlay noir couvrant tout l’écran avec les liens  
+   •  .open / body.nav-open → états activés par le JS (toggle)  
+   Le tout reste invisible sur desktop grâce aux media-queries ajoutées plus bas.
+------------------------------------------------------------------ */
 
-/* ---------- 1. Bouton burger (caché par défaut) ---------------- */
+
+/* ========== 1. Icône BURGER (3 barres horizontales) =============== */
+
 #burger{
-  position:fixed;                 /* reste visible même en scroll */
-  top:16px; right:16px;
-  width:32px; height:24px;
-  cursor:pointer; z-index:1201;   /* au-dessus de l’overlay */
-  display:none;                   /* on ne l’affiche qu’en mobile */
+  position: fixed;        /* reste collé au viewport, même lors du scroll      */
+  top: 16px;              /* marge depuis le bord supérieur                    */
+  right: 16px;            /* marge depuis le bord droit                        */
+  width: 32px;            /* largeur de l’icône                                */
+  height: 24px;           /* hauteur totale (distance entre 1re & 3e barre)   */
+  cursor: pointer;        /* pointeur main au survol                           */
+  z-index: 1201;          /* → au-dessus de .mobile-nav (z-index 1200)         */
+  display: none;          /* on le révélera seulement sur mobile (@media)      */
 }
-#burger span,
-#burger::before,
-#burger::after{
-  content:"";
-  position:absolute; left:0;
-  width:100%; height:3px;
-  background:#c00;                /* rouge (ajuste la couleur) */
-  transition:transform .35s ease, opacity .35s ease;
+
+/* Les trois traits (pseudoelements + span central) */
+#burger span,               /* barre centrale                                 */
+#burger::before,            /* barre du haut                                  */
+#burger::after{             /* barre du bas                                   */
+  content: "";              /* crée un rectangle                              */
+  position: absolute;
+  left: 0; top: 0;          /* on ajustera top/bottom plus bas                */
+  width: 100%; height: 3px; /* épaisseur = 3 px                               */
+  background: white;        /* couleur blanche (change → rouge, etc.)         */
+  transition: transform .35s ease, opacity .35s ease; /* anim. douce          */
 }
-#burger::before{ top:0; }
-#burger span   { top:50%; transform:translateY(-50%); }
-#burger::after { bottom:0; }
+#burger::before{ top: 0; }                        /* 1re barre en haut        */
+#burger span   { top: 50%; transform: translateY(-50%); } /* barre du milieu  */
+#burger::after { bottom: 0; }                     /* 3e barre en bas          */
 
-/* état OPEN → croix */
-#burger.open::before{ transform:translateY(9px) rotate(45deg); }
-#burger.open::after { transform:translateY(-9px) rotate(-45deg); }
-#burger.open span   { opacity:0; }
+/* ÉTAT OUVERT : les trois barres se transforment en croix */
+#burger.open::before{ transform: translateY( 9px) rotate( 45deg); }
+#burger.open::after { transform: translateY(-9px) rotate(-45deg); }
+#burger.open span   { opacity: 0; }               /* barre centrale disparaît */
 
-/* ---------- 2. Overlay navigation ----------------------------- */
+
+/* ========== 2. OVERLAY DE NAVIGATION (affiché en plein écran) ====== */
+
 .mobile-nav{
-  position:fixed; inset:0;                /* couvre tout l’écran */
-  display:flex; flex-direction:column;
-  align-items:center; justify-content:center;
-  gap:36px;
-  background:rgba(0,0,0,.85);
-  backdrop-filter:blur(2px);
-  transform:translateY(-100%);            /* caché au-dessus */
-  transition:transform .45s cubic-bezier(.4,0,.2,1);
-  z-index:1200;
+  position: fixed; inset: 0;              /* occupe tout le viewport         */
+  display: flex;                          /* centrage flexbox                */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;                              /* espace vertical entre les liens */
+  background: rgba(0,0,0,.85);            /* voile noir semi-opaque          */
+  backdrop-filter: blur(2px);             /* floute légèrement le fond       */
+  transform: translateY(-100%);           /* caché au-dessus de l’écran      */
+  transition: transform .45s cubic-bezier(.4,0,.2,1); /* glisse doux          */
+  z-index: 1200;                          /* juste sous l’icône burger       */
 }
+
+/* Style des liens à l’intérieur de l’overlay */
 .mobile-nav a{
-  font-family:'Work Sans',sans-serif;
-  font-weight:300; letter-spacing:2px;
-  font-size:clamp(1.4rem,4vw,2rem);
-  color:#fff; text-decoration:none;
-  text-transform:lowercase;
-  position:relative;
-}
-.mobile-nav a::after{                     /* fine ligne blanche */
-  content:""; position:absolute; left:-40vw; right:-40vw;
-  bottom:-14px; height:1px; background:#fff; opacity:.6;
-}
-.mobile-nav a:last-child::after{ display:none; }
-
-/* état OPEN (ajouté/retiré par JS) */
-.mobile-nav.open{ transform:translateY(0); }
-
-/* empêcher le scroll du fond quand le menu est ouvert */
-body.nav-open{ overflow:hidden; }
-
-/* ---------- 3. Points de rupture -------------------------------- */
-
-/* Smartphones / petites tablettes  ≤ 768 px */
-@media (max-width:768px){
-  /* on cache le menu horizontal classique */
-  .menu{ display:none; }
-
-  /* on montre le burger */
-  #burger{ display:block; }
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: clamp(1.4rem, 4vw, 2rem);    /* taille fluide 1.4–2 rem        */
+  color: #fff;
+  text-decoration: none;
+  text-transform: lowercase;
+  position: relative;                     /* permet la ligne decorative      */
 }
 
-/* Desktop  > 768 px  : on masque complètement l’overlay */
-@media (min-width:769px){
-  .mobile-nav{ display:none; }
+/* Ligne blanche horizontale qui traverse l’écran */
+.mobile-nav a::after{
+  content: "";
+  position: absolute;
+  left: -40vw; right: -40vw;              /* dépasse largement pour toute la largeur */
+  bottom: -14px;                          /* espace sous le texte                     */
+  height: 1px;
+  background: #fff;
+  opacity: .6;
 }
+/* Pas de ligne après le dernier lien */
+.mobile-nav a:last-child::after{ display: none; }
+
+/* ÉTAT OUVERT déclenché par JS → l’overlay descend à Y = 0 */
+.mobile-nav.open{ transform: translateY(0); }
+
+
+/* ========== 3. Empêche le fond de défiler quand le menu est ouvert == */
+body.nav-open{ overflow: hidden; }
+
+
+/* ========== 4. Points de rupture =================================== */
+
+/* Mobile / tablette : on cache le menu horizontal classique et
+   on montre le burger + overlay   */
+@media (max-width: 768px){
+  .menu   { display: none; }   /* barre horizontale masquée */
+  #burger { display: block; }  /* icône visible             */
+}
+
+/* Desktop : on masque complètement l’overlay pour éviter un tabindex
+   ou une apparition accidentelle                                   */
+@media (min-width: 769px){
+  .mobile-nav{ display: none; }
+}
+
 
