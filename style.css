@@ -361,37 +361,42 @@ footer {
   transition: transform .35s ease, opacity .35s ease; /* anim. douce          */
 }
 #burger::before{ top: 0; }                        /* 1re barre en haut        */
-#burger span   { top: 50%; transform: translateY(-50%); } /* barre du milieu  */
-#burger::after { bottom: 0; }                     /* 3e barre en bas          */
+#burger span   { top: 50%; transform: translateY(0 vh); } /* barre du milieu  */
+#burger::after { top: 100%; }                     /* 3e barre en bas          */
 
 /* ÉTAT OUVERT : les trois barres se transforment en croix */
-#burger.open::before{ transform: translateY( 9px) rotate( 45deg); }
-#burger.open::after { transform: translateY(-9px) rotate(-45deg); }
+#burger.open::before{ transform: translateY( 12px) rotate( 45deg); }
+#burger.open::after { transform: translateY(-12px) rotate(-45deg); }
 #burger.open span   { opacity: 0; }               /* barre centrale disparaît */
 
 
 /* ========== 2. OVERLAY DE NAVIGATION (affiché en plein écran) ====== */
 
 .mobile-nav{
-  position: fixed; inset: 0;              /* occupe tout le viewport         */
+  position: fixed;              
+  top: 0vh;  /* Espace par rapport au haut de la page         */
+  left: 0; right: 0; /* Pas de marges particulières à gauche et à droite  */
+  height: 100vh;        /* Le menu déroulant fait 100% de la hauteur totale de la page au max ou sinon s'adapte à la taille du menu déroulant      */
   display: flex;                          /* centrage flexbox                */
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 36px;                              /* espace vertical entre les liens */
+  gap: 16px;                              /* espace vertical entre les liens */
   background: rgba(0,0,0,.85);            /* voile noir semi-opaque          */
   backdrop-filter: blur(2px);             /* floute légèrement le fond       */
-  transform: translateY(-100%);           /* caché au-dessus de l’écran      */
-  transition: transform .45s cubic-bezier(.4,0,.2,1); /* glisse doux          */
+  transform: translateY(-100vh);           /* caché au-dessus de l’écran      */
+  transition: transform 0.7s cubic-bezier(.4,0,.2,1); /* glisse doux          */
   z-index: 1200;                          /* juste sous l’icône burger       */
+  overflow-y: auto;
+  /* padding: 64px 0 32px; */
 }
 
 /* Style des liens à l’intérieur de l’overlay */
 .mobile-nav a{
   font-family: 'Work Sans', sans-serif;
   font-weight: 300;
-  letter-spacing: 2px;
-  font-size: clamp(1.4rem, 4vw, 2rem);    /* taille fluide 1.4–2 rem        */
+  letter-spacing: 1.5px;
+  font-size: clamp(1.4rem, 3.3vw, 1.7rem);    /* taille fluide 1.4–2 rem        */
   color: #fff;
   text-decoration: none;
   text-transform: lowercase;
@@ -400,19 +405,22 @@ footer {
 
 /* Ligne blanche horizontale qui traverse l’écran */
 .mobile-nav a::after{
-  content: "";
-  position: absolute;
-  left: -40vw; right: -40vw;              /* dépasse largement pour toute la largeur */
-  bottom: -14px;                          /* espace sous le texte                     */
-  height: 1px;
-  background: #fff;
-  opacity: .6;
+  content:"";
+  position:absolute;
+  /* centrage horizontal */
+  left:50%; transform:translateX(-50%);
+
+  width:300px;            /* ← longueur identique pour tous les traits */
+  height:1px;
+  bottom:-10px;           /* espace sous le texte */
+  background:#fff;
+  opacity:.6;
 }
 /* Pas de ligne après le dernier lien */
 .mobile-nav a:last-child::after{ display: none; }
 
 /* ÉTAT OUVERT déclenché par JS → l’overlay descend à Y = 0 */
-.mobile-nav.open{ transform: translateY(0); }
+.mobile-nav.open{ transform: translateY(0%); }
 
 
 /* ========== 3. Empêche le fond de défiler quand le menu est ouvert == */
