@@ -27,7 +27,7 @@ h1, h2, h3, h4, h5, h6 {
 -------------------------------------------------- */
 /* Bandeau titre principal */
 #main-header {
-  background: #000;                  /* contraste titre blanc / fond noir */
+    background: rgba(0,0,0,0.8); /* La on peut modifier couleur carte et transparence */                  /* contraste titre blanc / fond noir */
   text-align: center;
   padding: 30px 0;
   transition: transform .3s ease, opacity .3s ease;
@@ -54,7 +54,7 @@ h1, h2, h3, h4, h5, h6 {
   justify-content: center;
   gap: 20px;
 
-  background: #000;
+  background: rgba(0,0,0,0.8);
   padding: 10px 0;
   box-shadow: 0 2px 6px rgba(0, 0, 0, .3);
 }
