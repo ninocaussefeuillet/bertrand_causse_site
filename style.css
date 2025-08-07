@@ -444,4 +444,25 @@ body.nav-open{ overflow: hidden; }
   .mobile-nav{ display: none; }
 }
 
+/* -------------------------------------------------------
+LIENS INTERACTIFS VERS LES PAGES DES AUTRES ARTISTES
+------------------------------------------------------- */
+/* Style sobre pour les liens vers des artistes */
+a.artist-link {
+  color: inherit;               /* hérite de la couleur du texte environnant */
+  text-decoration: none;        /* enlève le soulignement */
+  /* font-style: italic;           optionnel : ajoute une touche élégante */
+  cursor: pointer;
+}
 
+a.artist-link:hover {
+  text-decoration: underline;   /* sous-ligne uniquement au survol */
+  color: #a58b6f;                 /* ou un gris doux */
+}
+
+/* Petite liste de couleurs possibles : 
+Brun doré léger #a58b6f	Chaleureux, classique
+Cuivre atténué	#b4745e	Doux, un peu rétro
+Bleu-gris désaturé	#6c7a89	Calme, raffiné
+Vert olive clair	#839073	Naturel, discret
+Violet fumé	#8b6d9c */
