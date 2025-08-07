@@ -145,6 +145,8 @@ h1, h2, h3, h4, h5, h6 {
   padding: 40px 20px;
   background: #fff;
   border-radius: 8px;
+  background: rgba(255,255,255,0.8); /* La on peut modifier couleur carte et transparence */
+  backdrop-filter: blur(4px);      /* floute ce qui passe derrière la carte */
   box-shadow: 0 6px 20px rgba(0, 0, 0, .15);
 }
 
