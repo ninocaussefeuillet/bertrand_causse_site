@@ -104,13 +104,17 @@ document.addEventListener('DOMContentLoaded', () => { // Attendre que le HTML so
   });
 
   if (pastEvents.length && agendaCard) {
-    const link      = document.createElement('a');
-    link.textContent = 'Événements passés';
-    link.style.cssText = 'position:absolute; right:20px; bottom:20px;';
-    link.href        = 'past-events.html';
-    link.target      = '_blank';
-    agendaCard.style.position = 'relative';
-    agendaCard.appendChild(link);
+    const link = document.createElement('a');
+    link.textContent = ' → Événements passés';
+    link.href = 'past-events.html';
+    link.target = '_blank';
+    link.classList.add('classic-link'); // applique ton style CSS
+    link.style.position = 'absolute';
+    link.style.right = '20px';
+    link.style.bottom = '20px';
+
+agendaCard.style.position = 'relative';
+agendaCard.appendChild(link);
 
     // URLs absolues pour éviter les chemins cassés dans la page blob
 const base          = new URL('.', location.href);                 // répertoire courant du site
@@ -141,7 +145,7 @@ const html = `
         ${pastEvents.map(ev => ev.outerHTML).join('')}
 
         <p style="margin-top:16px">
-          <a href="${location.href}">← Retour au site</a>
+          <a href="${location.href}" class="classic-link"> ← Retour au site</a>
         </p>
       </div>
     </section>

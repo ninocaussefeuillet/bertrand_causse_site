@@ -536,6 +536,18 @@ a.artist-link:hover {
   color: #a58b6f;                 /* ou un gris doux */
 }
 
+a.classic-link {
+  color: #b4745e;               /* hérite de la couleur du texte environnant */
+  text-decoration: none;        /* enlève le soulignement */
+  /* font-style: italic;           optionnel : ajoute une touche élégante */
+  cursor: pointer;
+}
+
+a.classic-link:hover {
+  text-decoration: underline;   /* sous-ligne uniquement au survol */
+  color: #a58b6f;                 /* ou un gris doux */
+}
+
 /* Petite liste de couleurs possibles : 
 Brun doré léger #a58b6f	Chaleureux, classique
 Cuivre atténué	#b4745e	Doux, un peu rétro
