@@ -313,33 +313,37 @@ footer {
   #burger{ display: block; }          /* bouton burger visible */
   /* .mobile-nav est déjà display:flex par défaut (et masquée via transform) */
 
-  /* — Typo — */
-  body{ font-size: 16px; }
-  #site-title{ font-size: 1.9rem; }
+  .chapter-hero{
+    /* hauteurs mini/maxi raisonnables pour petits écrans */
+    min-height: 180px;
+    max-height: 55vh;
+    overflow: hidden; /* cache le dépassement de l’image */
+  }
+  .chapter-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;              /* on assume le recadrage */
+    object-position: center top;    /* cadre vers le haut : utile si le sujet est en haut */
+    display:block;
+  }
 
-  /* — Image de chapitre (full-bleed) — */
-  .chapter{ scroll-margin-top: 70px; }
-  .chapter-hero{ margin: 0; line-height: 0; }
-  .chapter-img{ display:block; width:100%; height:auto; }
-
-  /* — Titre en “verre” — on réduit un peu — */
+  /* Titre overlay plus compact pour ne pas bouffer l’image */
   :root{
-    --title-size: clamp(1.8rem, 6vw, 3.2rem);
-    --glass-pad: 12px;
+    --title-size: clamp(1.6rem, 6vw, 2.4rem);
+    --glass-pad: 10px;
   }
   .chapter-title{
-    left: clamp(14px, 5vw, 40px);
-    bottom: clamp(14px, 5vw, 40px);
+    left: clamp(12px, 5vw, 28px);
+    bottom: clamp(12px, 5vw, 28px);
   }
 
-  /* — Carte full-bleed — padding plus raisonnable — */
+  /* Carte full-bleed sans débordement */
   .chapter-card{
-    padding: clamp(18px, 4vw, 32px);
-    margin-left:  calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
+    margin-left: 0;
+    margin-right: 0;
+    padding: clamp(16px, 4vw, 24px);
+    border-radius: 0;
   }
-  .chapter-card > :first-child{ margin-top:0; }
-  .chapter-card > :last-child{  margin-bottom:0; }
 
   /* — Footer — évite qu’il masque le contenu en mobile — */
   footer{
@@ -359,20 +363,36 @@ footer {
   #site-title{ font-size: 1.6rem; }
 
   /* — Titre sur image — un cran plus petit — */
+  .chapter-hero{
+    min-height: 140px;       /* plus petit qu’en tablette */
+    max-height: 50vh;
+    overflow: hidden;
+  }
+  .chapter-img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;              /* on garde le recadrage */
+    object-position: center top;    /* sujet cadré vers le haut */
+    display: block;
+  }
+
+  /* Titre overlay — encore plus compact */
   :root{
-    --title-size: clamp(1.6rem, 7vw, 2.6rem);
-    --glass-pad: 10px;
+    --title-size: clamp(1.4rem, 6vw, 2rem);
+    --glass-pad: 8px;
   }
   .chapter-title{
-    left: clamp(12px, 6vw, 28px);
-    bottom: clamp(12px, 6vw, 28px);
+    left: clamp(10px, 4vw, 20px);
+    bottom: clamp(10px, 4vw, 20px);
   }
 
-  /* — Carte — padding réduit — */
-  .chapter-card{ padding: clamp(16px, 4vw, 24px); }
-
-  /* — Liens overlay mobile — un peu plus espacés — */
-  .mobile-nav{ gap: 14px; }
+  /* Carte full-bleed : aucun débordement horizontal */
+  .chapter-card{
+    margin-left: 0;
+    margin-right: 0;
+    padding: clamp(14px, 4vw, 20px);
+    border-radius: 0;
+  }
 
   /* — Vidéo — marge plus compacte — */
   .video-wrapper{ margin-bottom: 12px; }
