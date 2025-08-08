@@ -112,18 +112,41 @@ document.addEventListener('DOMContentLoaded', () => { // Attendre que le HTML so
     agendaCard.style.position = 'relative';
     agendaCard.appendChild(link);
 
-    const html = `
-      <!DOCTYPE html><html lang="fr"><head>
-        <meta charset="UTF-8">
-        <title>Événements passés</title>
-        <link rel="stylesheet" href="style.css">
-      </head><body>
-        <section class="content">
-          <div class="card"><h2>Événements passés</h2>
-            ${pastEvents.map(ev => ev.outerHTML).join('')}
-          </div>
-        </section>
-      </body></html>`;
+    // URLs absolues pour éviter les chemins cassés dans la page blob
+const base          = new URL('.', location.href);                 // répertoire courant du site
+const cssUrl        = new URL('style.css', base).href;             // URL absolue vers ton CSS
+const agendaImgUrl  = new URL('images/agenda.jpeg', base).href;    // même image que l’Agenda
+
+const html = `
+  <!DOCTYPE html><html lang="fr"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Événements passés</title>
+
+    <!-- mêmes polices/icônes que sur l’index -->
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="${cssUrl}">
+  </head>
+  <body>
+    <section class="chapter" id="past-agenda">
+      <figure class="chapter-hero">
+        <img class="chapter-img" src="${agendaImgUrl}" alt="agenda">
+        <figcaption class="chapter-title">
+          <h2>Événements passés</h2>
+        </figcaption>
+      </figure>
+
+      <div class="chapter-card -full">
+        ${pastEvents.map(ev => ev.outerHTML).join('')}
+
+        <p style="margin-top:16px">
+          <a href="${location.href}">← Retour au site</a>
+        </p>
+      </div>
+    </section>
+  </body>
+  </html>`;
 
     const blobURL = URL.createObjectURL(new Blob([html], {type: 'text/html'}));
     link.addEventListener('click', (e) => {
