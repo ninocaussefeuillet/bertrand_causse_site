@@ -29,9 +29,9 @@
     <a href="#agenda">Agenda</a>
     <a href="#contact">Contact</a>
   </nav>
-  </div> <!-- /#top-bar -->
+</div> <!-- /#top-bar -->
 
-  <!-- 2.bis  BOUTON BURGER + NAV MOBILE (smartphone)  -->
+ <!-- 2.bis  BOUTON BURGER + NAV MOBILE (smartphone)  -->
   <div id="burger" aria-label="Ouvrir le menu" aria-expanded="false" role="button">
     <span></span>
   </div>
@@ -46,6 +46,7 @@
   </nav>
 
 
+
   <!-- ===================== 3. HERO PARALLAXE ===================== -->
   <!-- <section class="hero"> -->
     <!-- Image plein écran (effet parallaxe géré en JS) -->
@@ -54,9 +55,15 @@
   </section> -->
 
   <!-- ===================== 4. BIOGRAPHIE (chevauche l'image) ===================== -->
-<section class="chapter" id="bio" data-bg="images/acceuil.jpeg">
-  <div class="card">
+
+  <section class="chapter" id="bio">
+  <figure class="chapter-hero">
+    <img class="chapter-img" src="images/acceuil.jpeg" alt="bio">
+    <figcaption class="chapter-title">
       <h2>Biographie</h2>
+    </figcaption>
+  </figure>
+<div class="chapter-card -full">
       <!-- 📄 Texte condensé pour l'exemple ; remplace par ton contenu complet -->
       <p>Pianiste, altiste, siffleur et chef d'orchestre, Bertrand Causse est 
         un musicien éclectique par excellence. Tourné vers la musique contemporaine, 
@@ -85,9 +92,15 @@
   </section>
 
   <!-- ===================== 5. SIFFLET ===================== -->
-<section class="chapter" id="sifflet" data-bg="images/sifflet.jpg">
-  <div class="card">
+
+<section class="chapter" id="sifflet">
+  <figure class="chapter-hero">
+    <img class="chapter-img" src="images/sifflet.jpg" alt="sifflet">
+    <figcaption class="chapter-title">
       <h2>Sifflet</h2>
+    </figcaption>
+  </figure>
+<div class="chapter-card -full">
       <p>Voici quelques enregistrements ou extraits de pièces sifflet. Voir <a href="#agenda" > Agenda</a> pour les prochains récitals. </p>
     <p style="margin-top:10px"></p> <!-- on saute un espace -->
       <p><strong>Gabriel Fauré</strong> – <em>Après un rêve</em> (accordéon : <a href="https://laurentderache.com" class="artist-link" target="_blank" rel="noopener noreferrer">Laurent Derache</a>, trombone : Philippe Georges)</p>
@@ -115,9 +128,14 @@
 
 
   <!-- ===================== 6. Orchestre ===================== -->
-  <section class="chapter" id="orchestre" data-bg="images/orchestre.jpg">
-    <div class="card">
+     <section class="chapter" id="orchestre">
+  <figure class="chapter-hero">
+    <img class="chapter-img" src="images/orchestre.jpg" alt="orchestre">
+    <figcaption class="chapter-title">
       <h2>Orchestre Coalescence</h2>
+    </figcaption>
+  </figure>
+<div class="chapter-card -full">
       <p>Voici quelques enregistrements ou extraits de pièces sifflet. Voir <a href="#agenda" > Agenda</a> pour les prochains récitals.
     <p style="margin-top:10px"></p> <!-- on saute un espace -->
       <p><strong>Gabriel Fauré</strong> – <em>Après un rêve</em> (accordéon : <a href="https://laurentderache.com" class="artist-link" target="_blank" rel="noopener noreferrer">Laurent Derache</a>, trombone : Philippe Georges)</p>
@@ -144,9 +162,14 @@
   </section>
 
   <!-- ===================== 7. AGENDA ===================== -->
-<section class="chapter" id="agenda" data-bg="images/agenda.jpeg">
-  <div class="card">
-    <h2>Agenda</h2>
+     <section class="chapter" id="agenda">
+  <figure class="chapter-hero">
+    <img class="chapter-img" src="images/agenda.jpeg" alt="agenda">
+    <figcaption class="chapter-title">
+      <h2>Agenda</h2>
+    </figcaption>
+  </figure>
+<div class="chapter-card -full">
     <!-- 1 événement = un .event (date + détails) -------------------------->
   <div class="event">
     <span class="date">22/07/24 – 20:00</span> <!-- Date + heure -->
@@ -211,16 +234,21 @@
       <div>Saint-Moritz</div>
       <div>Avec <a href="http://guyjaccottet.com" class="artist-link" target="_blank" rel="noopener noreferrer">Guy-Baptiste Jaccottet</a> (orgue)</div>
     </div>
-  </div>
+  <!-- </div> -->
   <!-- Duplique .event pour chaque date -->
       <!-- … -->
-  </div>
+  <!-- </div> -->
 </section>
 
   <!-- ===================== 8. CONTACT ===================== -->
-<section class="chapter" id="contact" data-bg="images/contact.jpg">
-  <div class="card">
-    <h2>Contact</h2>
+<section class="chapter" id="contact">
+  <figure class="chapter-hero">
+    <img class="chapter-img" src="images/contact.jpg" alt="contact">
+    <figcaption class="chapter-title">
+      <h2>Contact</h2>
+    </figcaption>
+  </figure>
+<div class="chapter-card -full">
     <form id="contact-form" action="https://formsubmit.co/bertrandcausse@gmail.com" method="POST">
         <input type="text"   name="nom"    placeholder="Votre nom"    required />
         <input type="email"  name="email"  placeholder="Votre adresse email"  required />
@@ -244,6 +272,6 @@
   </footer>
 
   <!-- ===================== 10. SCRIPTS ===================== -->
-  <script src="script.js"></script>
+   <script src="script.js"></script>
 </body>
 </html>

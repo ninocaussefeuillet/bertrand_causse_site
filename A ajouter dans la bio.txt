@@ -4,3 +4,5 @@ Choisir des photos en HD
 
 Choisir les audios précis qu'on veut mettre
 
+Pb de la page avec les dates de concerts passées.
+

@@ -66,100 +66,124 @@ h1, h2, h3, h4, h5, h6 {
   color: #aaa;
 }
 
-/* --------------------------------------------------
-   3.  HERO / PARALLAXE
--------------------------------------------------- */
-.hero {
-  position: relative;
-  height: 100vh;                     /* section plein écran */
-  overflow: hidden;                  /* masque l'image qui dépasse */
+/* -------------------------------------------------------------------------------------
+4. ON GERE LE LAYOUT GENERIQUE D UNE SECTION (ex : bio, sifflet etc.) AVEC TEXTE + IMAGE
+------------------------------------------------------------------------------------- */
+
+/* ===== Chapitre générique ======================================== */
+.chapter{
+  margin: 0;
+  padding: 0;
+  display: flow-root;        /* crée un nouveau contexte → pas de marge qui s’échappe */
 }
 
-.hero-img {
-  position: absolute;
-  top: 0;
-  left: 0;
+
+/* ----- Bandeau image full-bleed (comme ta capture) ---------------- */
+.chapter-hero{
+  position: relative;
+  margin: 0;
+
+  /* “full-bleed” : on casse les marges du conteneur pour prendre tout l’écran */
+  display: block;        /* enlève l’espace inline */
+  width: 100%;           /* largeur = largeur dispo (plein écran) */
+  height: auto;          /* ← conserve le ratio H/L, donc jamais tronquée */
+  max-width: 100%;
+}
+
+.chapter-img{
   width: 100%;
-  height: 120%;                      /* marge pour l'effet parallaxe */
-  object-fit: cover;                 /* couvre sans distorsion */
-  transform: translateY(0);          /* modifié en JS */
-  will-change: transform;
-  z-index: 0;                        /* sous le contenu suivant */
+  height: auto;
+  object-fit: cover;  /* remplit sans déformer (recadre si besoin) */
+  display: block;      /* plus de comportement inline → pas d’espace fantôme */
+  line-height: 0;      /* annule l’espace lié à la hauteur de ligne */
 }
 
-/* --------------------------------------------------
-   3.  Mettre les sections avec une image en fond
--------------------------------------------------- */
 
-/*  A) Section “chapter” – aucune marge, fond transparent */
-.chapter{
-  position: relative;
-  margin:0;
-  padding:60vh 0 40vh;
-}
-
-/* B) Voile d’opacité pour le fondu   (ne bouge pas) */
-.chapter{
-  position: relative;
-  padding: 60vh 0 40vh;      /* la carte reste telle quelle */
-  overflow: hidden;          /* coupe ce qui dépasse */
-}
-
-/* Unique pseudo pour l’image */
-.chapter::before{
+/* 1) Gradient for readability at the bottom of the photo */
+.chapter-hero::after{
   content:"";
-  position:absolute; top:0; left:0;
-  width:100%;
-  height:100%;                 /* ← à ne pas oublier !  */
-  /* inset:0;  ← équivalent compact : top/right/bottom/left 0 */
-
-  background-image:var(--bg);
-  background-size:contain;     /* montre l’image entière, pas de découpe */
-  background-position:center;
-  background-repeat:no-repeat;
-  background-color:#000;       /* bandes noires éventuelles */
-
-  /* valeurs injectées par JS */
-  transform: translateY(var(--shift));
-  opacity:   var(--alpha);
-  will-change: transform, opacity;
-  z-index:-1;                  /* derrière la carte */
+  position:absolute; inset:0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,.55) 0%,
+    rgba(0,0,0,.25) 40%,
+    rgba(0,0,0,0) 70%
+  );
+  pointer-events:none;
 }
 
+/* ==== TITRE DE CHAPITRE — version simple (2 réglages) ==== */
+/* ↳ Tu peux ne modifier que ces deux lignes */
+:root{
+  --title-size: clamp(2.2rem, 5vw, 7rem);  /* taille du h2 (mini, fluide, maxi) */
+  --glass-pad: 16px;                        /* marge autour du titre dans l'encadré flouté */
+}
 
+.chapter-title{
+  position: absolute;
+  left: clamp(16px, 6vw, 80px);
+  bottom: clamp(16px, 6vw, 80px);
+  color: #fff;
+  z-index: 2;
+  display: inline-block;
+}
 
-/* --------------------------------------------------
-   4.  SECTIONS & CARTES
--------------------------------------------------- */
-.content {
+/* “verre” flouté derrière le titre */
+.chapter-title::before{
+  content: "";
+  position: absolute;
+  inset: calc(-1 * var(--glass-pad));
+  border-radius: 12px;
+  background: rgba(15,15,15,.34);
+  backdrop-filter: blur(6px) saturate(115%);
+  -webkit-backdrop-filter: blur(6px) saturate(115%);
+  box-shadow: 0 12px 40px rgba(0,0,0,.35);
+  z-index: -1;
+}
+
+.chapter-title h2{
+  margin: 0;
+  font: 800 var(--title-size)/.95 'Work Sans', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+  color: #fff;
+  /* halo discret pour la lisibilité */
+  text-shadow:
+    0 0 16px rgba(0,0,0,.45),
+    0 2px 8px rgba(0,0,0,.35);
+}
+
+/* ----- Carte sous le bandeau ------------------------------------- */
+/* Par défaut on la rend “full-bleed” comme l’image */
+.chapter-card{
   position: relative;
-  background: #000;                  /* noir autour des cartes */
-  padding: 60px 0;
-}
-/* Première section qui chevauche la hero */
-.content.overlap {
-  margin-top: -20vh;                 /* fait remonter sous l'image */
+   margin: 0;
+  width: auto;                         /* pas 100vw */
+  margin-left:  calc(50% - 50vw);      /* étire jusqu’aux bords */
+  margin-right: calc(50% - 50vw);
+  padding: clamp(20px, 4vw, 48px);
+  box-sizing: border-box;              /* au cas où le reset manque */
+  background: #fff;
+  box-shadow: 0 10px 30px rgba(0,0,0,.10);
 }
 
-/* Cartes réutilisables */
-.card,
-.bio-card {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 40px 20px;
-  background: #fff;
-  border-radius: 8px;
-  background: rgba(255,255,255,0.8); /* La on peut modifier couleur carte et transparence */
-  backdrop-filter: blur(4px);      /* floute ce qui passe derrière la carte */
-  box-shadow: 0 6px 20px rgba(0, 0, 0, .15);
+/* Variante si un jour tu veux une carte contenue et centrée (pas full-bleed) */
+.chapter-card.-contained{
+  width: min(1100px, calc(100vw - 40px));
+  left: auto; right: auto;
+    margin: 0; 
+  border-radius: 10px;
 }
+.chapter-card > :first-child{ margin-top: 0; }
+.chapter-card > :last-child { margin-bottom: 0; }
+  
 
 /* --------------------------------------------------
    5.  AGENDA
 -------------------------------------------------- */
 #agenda {
   max-width: 1800px;
-  margin: 0 auto 40px;
+  margin: 0 ;
 }
 
 .event {
@@ -268,68 +292,90 @@ footer {
    MEDIA QUERIES  —  TABLETTE & TÉLÉPHONE
 ------------------------------------------------------------------ */
 
-/* === 1) Tablette portrait et petits laptops (≤ 768 px) ============= */
-@media (max-width: 768px) {
+/* ===========================
+   TABLETTE (≤ 768 px)
+   =========================== */
+@media (max-width: 768px){
 
-  /* --- Typographie ---------------------------------------------- */
-  body              { font-size: 16px; }          /* texte un poil plus grand */
-  h1#site-title      { font-size: 2rem; }
-  h2                { font-size: 1.4rem; }
+  /* — Header / top bar — */
+  #top-bar{
+    position: static;          /* plus de sticky en mobile */
+    background: transparent;   /* plus de bandeau noir */
+    box-shadow: none;
+  }
+  #main-header{
+    padding: 16px 0;           /* header plus compact */
+    background: rgba(0,0,0,.6);
+  }
 
-  /* --- Menu ------------------------------------------------------ */
-  .menu             { flex-wrap: wrap; gap: 12px; padding: 8px 0; }
-  .menu a           { font-size: 0.95rem; }
+  /* — On désactive le menu horizontal, on affiche le burger — */
+  .menu{ display: none !important; }
+  #burger{ display: block; }          /* bouton burger visible */
+  /* .mobile-nav est déjà display:flex par défaut (et masquée via transform) */
 
-  /* --- Héros ----------------------------------------------------- */
-  .hero-img         { height: 110%; }             /* moins d’overscan -> moins de RAM */
+  /* — Typo — */
+  body{ font-size: 16px; }
+  #site-title{ font-size: 1.9rem; }
 
-  /* --- Cartes ---------------------------------------------------- */
-  .card,
-  .bio-card         { padding: 32px 18px; }       /* marge interne réduite */
+  /* — Image de chapitre (full-bleed) — */
+  .chapter{ scroll-margin-top: 70px; }
+  .chapter-hero{ margin: 0; line-height: 0; }
+  .chapter-img{ display:block; width:100%; height:auto; }
 
-  /* --- Agenda ---------------------------------------------------- */
-  .event            { gap: 12px; }                /* espace plus petit entre date & détails */
-  .date             { min-width: 110px; font-size: 1.1em; }
+  /* — Titre en “verre” — on réduit un peu — */
+  :root{
+    --title-size: clamp(1.8rem, 6vw, 3.2rem);
+    --glass-pad: 12px;
+  }
+  .chapter-title{
+    left: clamp(14px, 5vw, 40px);
+    bottom: clamp(14px, 5vw, 40px);
+  }
 
-  /* --- Footer ---------------------------------------------------- */
-  footer            { font-size: 12px; padding: 16px 20px; }
-  .footer-right a   { font-size: 18px; margin-left: 10px; }
+  /* — Carte full-bleed — padding plus raisonnable — */
+  .chapter-card{
+    padding: clamp(18px, 4vw, 32px);
+    margin-left:  calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+  .chapter-card > :first-child{ margin-top:0; }
+  .chapter-card > :last-child{  margin-bottom:0; }
+
+  /* — Footer — évite qu’il masque le contenu en mobile — */
+  footer{
+    position: static;      /* plus “fixed” en mobile */
+    padding: 14px 16px;
+    font-size: 12px;
+  }
 }
 
-/* === 2) Téléphone (≤ 479 px) ======================================= */
-@media (max-width: 479px) {
+/* ===========================
+   TÉLÉPHONE (≤ 479 px)
+   =========================== */
+@media (max-width: 479px){
 
-  /* --- Typographie ---------------------------------------------- */
-  body              { font-size: 15px; }
-  h1#site-title      { font-size: 1.6rem; }
-  h2                { font-size: 1.25rem; }
+  /* — Header encore plus compact — */
+  #main-header{ padding: 12px 0; }
+  #site-title{ font-size: 1.6rem; }
 
-  /* --- Menu ------------------------------------------------------ */
-  .menu a           { font-size: 1rem; }
+  /* — Titre sur image — un cran plus petit — */
+  :root{
+    --title-size: clamp(1.6rem, 7vw, 2.6rem);
+    --glass-pad: 10px;
+  }
+  .chapter-title{
+    left: clamp(12px, 6vw, 28px);
+    bottom: clamp(12px, 6vw, 28px);
+  }
 
-  /* (option) Si tu prévois plus tard un burger,
-     tu peux masquer la nav ici et l’afficher via JS :
-     .menu { display:none; }  */
+  /* — Carte — padding réduit — */
+  .chapter-card{ padding: clamp(16px, 4vw, 24px); }
 
-  /* --- Héros / images ------------------------------------------- */
-  .hero             { height: 90vh; }             /* réduit un peu la section pour montrer du contenu */
-  .hero-img         { height: 108%; }
+  /* — Liens overlay mobile — un peu plus espacés — */
+  .mobile-nav{ gap: 14px; }
 
-  /* --- Sections & cartes ---------------------------------------- */
-  .content          { padding: 40px 0; }
-  .card,
-  .bio-card         { padding: 26px 16px; }
-
-  /* --- Agenda ---------------------------------------------------- */
-  .event            { flex-direction: column; }
-  .date             { min-width: 0; }
-
-  /* --- Vidéo ----------------------------------------------------- */
-  .video-wrapper    { margin-bottom: 16px; }      /* espace plus compact */
-
-  /* --- Footer ---------------------------------------------------- */
-  footer            { flex-direction: column; gap: 12px; font-size: 13px; }
-  .footer-right a   { font-size: 22px; margin-left: 0; }
+  /* — Vidéo — marge plus compacte — */
+  .video-wrapper{ margin-bottom: 12px; }
 }
 
 /* ------------------------------------------------------------------
@@ -363,7 +409,7 @@ footer {
   position: absolute;
   left: 0; top: 0;          /* on ajustera top/bottom plus bas                */
   width: 100%; height: 3px; /* épaisseur = 3 px                               */
-  background: white;        /* couleur blanche (change → rouge, etc.)         */
+  background: rgb(108, 106, 106);        /* couleur blanche (change → rouge, etc.)         */
   transition: transform .35s ease, opacity .35s ease; /* anim. douce          */
 }
 #burger::before{ top: 0; }                        /* 1re barre en haut        */
@@ -449,6 +495,9 @@ body.nav-open{ overflow: hidden; }
    ou une apparition accidentelle                                   */
 @media (min-width: 769px){
   .mobile-nav{ display: none; }
+  #top-bar {
+    display: block;
+  }
 }
 
 /* -------------------------------------------------------
