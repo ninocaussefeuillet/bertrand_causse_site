@@ -12,13 +12,12 @@ def run(cmd: str, cwd: str) -> None:
     """Exécute `cmd` dans `cwd`; n’arrête que sur vraie erreur."""
     print(f"\n➡️  {cmd}")
     res = subprocess.run(
-        cmd, shell=True, cwd=cwd, text=True,
+        cmd, shell=True, cwd=cwd, text=True, encoding="utf-8",
         stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
     if res.stdout:
         print(res.stdout.strip())
 
-    # git commit retourne 1 si rien à valider → on l’accepte
     if res.returncode and "nothing to commit" not in (res.stdout or ""):
         sys.exit(f"❌  Échec : {cmd}")
 
