@@ -1,0 +1,34 @@
+name: Build sitemap
+
+on:
+  push:
+    branches: [ "main" ]   # adapte si ta branche par défaut a un autre nom
+  workflow_dispatch:        # permet de lancer à la main depuis l'onglet Actions
+
+permissions:
+  contents: write           # nécessaire pour committer le sitemap
+
+jobs:
+  sitemap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0    # indispensable pour lire l'historique Git (dates de commit)
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - run: python generate_sitemap.py
+        env:
+          SITE_BASE: https://bertrandcausse.com   # ton URL canonique
+      - name: Commit and push sitemap.xml
+        run: |
+          if git diff --quiet sitemap.xml; then
+            echo "Aucun changement."
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add sitemap.xml
+            git commit -m "Update sitemap.xml"
+            git push
+          fi
