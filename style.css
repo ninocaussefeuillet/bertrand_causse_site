@@ -157,6 +157,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Par défaut on la rend “full-bleed” comme l’image */
 .chapter-card{
   position: relative;
+  padding: 2rem clamp(1rem, 5vw, 10rem);
    margin: 0;
   width: auto;                         /* pas 100vw */
   margin-left:  calc(50% - 50vw);      /* étire jusqu’aux bords */
@@ -165,7 +166,27 @@ h1, h2, h3, h4, h5, h6 {
   box-sizing: border-box;              /* au cas où le reset manque */
   background: #fff;
   box-shadow: 0 10px 30px rgba(0,0,0,.10);
+  line-height: 1.6;       /* définit l’interligne à 1.6 (160% de la taille de police).*/
 }
+
+  .chapter-card p {
+    text-align: justify;    /* justifie le texte : les lignes s'étirent pour que les deux bords
+                              gauche et droit soient alignés, comme dans les livres ou journaux */
+    hyphens: auto;          /* active la césure automatique (par ex. "chan-sons"),
+                              pour éviter de grands espaces entre les mots en justification */
+    margin-bottom: 1rem;    /* ajoute un espace vertical sous chaque paragraphe pour bien
+                              séparer les blocs de texte (1rem = taille de la police actuelle) */
+  }
+
+  /* 
+    Styles appliqués aux textes en gras <strong> dans la carte
+  */
+  .chapter-card strong {
+    display: block;         /* transforme <strong> en élément de type "bloc" :
+                              il prend toute la largeur et force un retour à la ligne après lui */
+    font-size: 1.1em;       /* augmente légèrement la taille du texte (110% de la taille normale) */
+    color: #333;            /* couleur gris foncé (au lieu de noir pur) pour plus de douceur visuelle */
+  }
 
 /* Variante si un jour tu veux une carte contenue et centrée (pas full-bleed) */
 .chapter-card.-contained{
@@ -344,12 +365,38 @@ footer {
     bottom: clamp(12px, 5vw, 28px);
   }
 
-  /* Carte full-bleed sans débordement */
+  /* 
+  Sélecteur principal pour la "carte de chapitre".
+  Ici on applique des styles généraux au conteneur .chapter-card
+*/
   .chapter-card{
     margin-left: 0;
     margin-right: 0;
     padding: clamp(16px, 4vw, 24px);
     border-radius: 0;
+    line-height: 1.6;
+  }
+
+  /* 
+    Styles appliqués à tous les <p> (paragraphes) contenus dans .chapter-card
+  */
+  .chapter-card p {
+    text-align: justify;    /* justifie le texte : les lignes s'étirent pour que les deux bords
+                              gauche et droit soient alignés, comme dans les livres ou journaux */
+    hyphens: auto;          /* active la césure automatique (par ex. "chan-sons"),
+                              pour éviter de grands espaces entre les mots en justification */
+    margin-bottom: 1rem;    /* ajoute un espace vertical sous chaque paragraphe pour bien
+                              séparer les blocs de texte (1rem = taille de la police actuelle) */
+  }
+
+  /* 
+    Styles appliqués aux textes en gras <strong> dans la carte
+  */
+  .chapter-card strong {
+    display: block;         /* transforme <strong> en élément de type "bloc" :
+                              il prend toute la largeur et force un retour à la ligne après lui */
+    font-size: 1.1em;       /* augmente légèrement la taille du texte (110% de la taille normale) */
+    color: #333;            /* couleur gris foncé (au lieu de noir pur) pour plus de douceur visuelle */
   }
 
   /* — Footer — évite qu’il masque le contenu en mobile — */
@@ -393,12 +440,23 @@ footer {
     bottom: clamp(10px, 4vw, 20px);
   }
 
-  /* Carte full-bleed : aucun débordement horizontal */
-  .chapter-card{
-    margin-left: 0;
-    margin-right: 0;
-    padding: clamp(14px, 4vw, 20px);
-    border-radius: 0;
+    .chapter-card p {
+    text-align: justify;    /* justifie le texte : les lignes s'étirent pour que les deux bords
+                              gauche et droit soient alignés, comme dans les livres ou journaux */
+    hyphens: auto;          /* active la césure automatique (par ex. "chan-sons"),
+                              pour éviter de grands espaces entre les mots en justification */
+    margin-bottom: 1rem;    /* ajoute un espace vertical sous chaque paragraphe pour bien
+                              séparer les blocs de texte (1rem = taille de la police actuelle) */
+  }
+
+  /* 
+    Styles appliqués aux textes en gras <strong> dans la carte
+  */
+  .chapter-card strong {
+    display: block;         /* transforme <strong> en élément de type "bloc" :
+                              il prend toute la largeur et force un retour à la ligne après lui */
+    font-size: 1.1em;       /* augmente légèrement la taille du texte (110% de la taille normale) */
+    color: #333;            /* couleur gris foncé (au lieu de noir pur) pour plus de douceur visuelle */
   }
 
   /* — Vidéo — marge plus compacte — */
@@ -525,7 +583,11 @@ body.nav-open{ overflow: hidden; }
   #top-bar {
     display: block;
   }
+   body { padding-bottom: calc(54px + 1rem); }
+  /* au cas où tes cartes aient un margin-bottom faible */
+  /* .chapter-card:last-child { margin-bottom: calc(54px + 1rem); } */
 }
+
 
 /* -------------------------------------------------------
 LIENS INTERACTIFS VERS LES PAGES DES AUTRES ARTISTES
