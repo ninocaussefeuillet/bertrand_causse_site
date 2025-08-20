@@ -283,6 +283,39 @@ audio {
   height: 100%;
 }
 
+/* Grille responsive : 1 colonne mobile, 2 colonnes tablette, 3 colonnes (ou plus) desktop */
+.video-grid {
+  display: grid;
+  gap: 1.25rem; /* espace entre vidéos */
+  grid-template-columns: 1fr; /* mobile */
+}
+
+@media (min-width: 768px) {
+  .video-grid { grid-template-columns: repeat(2, 1fr); } /* tablette */
+}
+
+@media (min-width: 1200px) {
+  .video-grid { grid-template-columns: repeat(3, 1fr); } /* ordi */
+}
+
+/* Bloc vidéo au bon ratio 16:9 */
+.video {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* moderne */
+}
+
+/* Fallback pour vieux navigateurs (sans aspect-ratio) */
+@supports not (aspect-ratio: 16 / 9) {
+  .video { position: relative; padding-top: 56.25%; }
+  .video > iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+}
+
+/* Par défaut (navigateurs modernes), l’iframe remplit le bloc */
+.video > iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
 /* --------------------------------------------------
    9.  FOOTER
 -------------------------------------------------- */
