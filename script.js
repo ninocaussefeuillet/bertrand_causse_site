@@ -74,6 +74,48 @@ document.addEventListener('DOMContentLoaded', () => { // Attendre que le HTML so
 }); // <-- point-virgule ajouté ici pour sécuriser l'IIFE suivante
 
 // ------------------------------------------------------------------------------------------------------------------------------------------
+// 4. POUR EVITER QUE LES VIDEOS SE METTENT EN ROUTE EN MËME TEMPS
+// ------------------------------------------------------------------------------------------------------------------------------------------
+
+
+// Références globales
+let ytPlayers = [];                          // instances YT.Player
+const audios = document.querySelectorAll('.audio-player'); // tous les <audio>
+
+// Quand l'API YouTube est prête, elle appelle automatiquement cette fonction
+function onYouTubeIframeAPIReady() {
+  // Pour chaque iframe .yt-player, on crée un contrôleur YT.Player
+  document.querySelectorAll('.yt-player').forEach((el, i) => {
+    ytPlayers[i] = new YT.Player(el, {
+      events: { 'onStateChange': onYTStateChange }
+    });
+  });
+}
+
+// Quand un player YouTube change d'état
+function onYTStateChange(event) {
+  // Si une vidéo YouTube vient de démarrer...
+  if (event.data === YT.PlayerState.PLAYING) {
+    // 1) Mettre en pause toutes les AUTRES vidéos YouTube
+    ytPlayers.forEach(p => {
+      if (p !== event.target) p.pauseVideo();
+    });
+    // 2) Mettre en pause TOUT l'audio HTML5
+    audios.forEach(a => a.pause());
+  }
+}
+
+// Quand un <audio> HTML5 démarre
+audios.forEach(current => {
+  current.addEventListener('play', () => {
+    // 1) Mettre en pause les autres <audio>
+    audios.forEach(a => { if (a !== current) a.pause(); });
+    // 2) Mettre en pause TOUTES les vidéos YouTube
+    ytPlayers.forEach(p => { try { p.pauseVideo(); } catch(e){} });
+  });
+});
+
+// ------------------------------------------------------------------------------------------------------------------------------------------
 // 5. ARCHIVAGE AUTOMATIQUE DES ÉVÉNEMENTS PASSÉS
 // ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -87,15 +129,15 @@ document.addEventListener('DOMContentLoaded', () => { // Attendre que le HTML so
     const span      = ev.querySelector('.date');
     if (!span) return;
 
-    const m         = span.textContent.match(/(\d{2})\/(\d{2})\/(\d{2})/);
+    const m         = span.textContent.trim().match(/^(\d{1,2})(?:\s*[-–]\s*(\d{1,2}))?\/(\d{1,2})\/(\d{4}|\d{2})\b/);
     if (!m) return;
 
-    const [ , d, mth, y ] = m;
-    const year      = 2000 + parseInt(y, 10);
+    const [ , startDay, endDay, mth, y ] = m;
+    const year      = y.length === 2 ? 2000 + parseInt(y, 10) : parseInt(y, 10);
     const month     = parseInt(mth, 10) - 1;
-    const day       = parseInt(d, 10);
+    const day       = parseInt(endDay || startDay, 10);
 
-    const eventDate = new Date(year, month, day, 23, 59, 59);
+    const eventDate = new Date(year, month, day, 23, 59, 59, 999);
 
     if (eventDate < today) {
       pastEvents.push(ev.cloneNode(true));
